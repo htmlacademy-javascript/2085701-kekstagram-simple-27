@@ -2,6 +2,7 @@ import {isEscapeKey} from './util.js';
 
 const userModalElement = document.querySelector('.img-upload__overlay');
 const userModal = document.querySelector('body');
+const userForm = document.querySelector('.img-upload__form');
 const userModalOpenElement = document.querySelector('.img-upload__input');
 const userModalCloseElement = userModalElement.querySelector('.img-upload__cancel');
 
@@ -13,7 +14,7 @@ const onPopupEscKeydown = (evt) => {
 };
 
 const clearFileInput = () => {
-  userModalOpenElement.value = '';
+  userForm.reset();
 };
 
 function openUserModal () {

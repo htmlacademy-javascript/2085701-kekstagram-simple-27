@@ -1,7 +1,11 @@
-const userForm = document.querySelector('.img-upload__form');
+const form = document.querySelector('#upload-select-image');
 
-const pristine = new Pristine(userForm);
+const pristine = new Pristine(form);
 
-userForm.addEventListener('submit', () => {
-  pristine.validate();
+form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const isValid = pristine.validate();
+  if (isValid) {
+    form.submit();
+  }
 });
