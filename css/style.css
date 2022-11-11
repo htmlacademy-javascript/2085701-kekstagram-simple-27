@@ -682,6 +682,15 @@ main {
   border: none;
 }
 
+.img-upload__text__error {
+  display: block;
+  font-size: 14px;
+  text-transform: lowercase;
+  color: crimson;
+  margin: 0;
+  padding: 0;
+}
+
 .text__hashtags {
   width: 450px;
 
