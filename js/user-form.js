@@ -1,12 +1,8 @@
-import {isEscapeKey} from './util.js';
-import {resetScale} from './scale.js';
-import {resetEffects} from './filter.js';
+import {showErrorMessage, showSuccessMessage} from './submit-message.js';
+import {sendData} from './api.js';
 
-const userModalElement = document.querySelector('.img-upload__overlay');
-const userModal = document.querySelector('body');
 const userForm = document.querySelector('#upload-select-image');
-const userModalOpenElement = document.querySelector('.img-upload__input');
-const userModalCloseElement = userModalElement.querySelector('.img-upload__cancel');
+const submitButton = document.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(userForm, {
   classTo: 'img-upload__text',
@@ -15,47 +11,36 @@ const pristine = new Pristine(userForm, {
   errorTextClass: 'img-upload__text__error',
 });
 
-const onPopupEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикую...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+const setUserFormSubmit = (onSuccess) => {
+  userForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    closeUserModal ();
-  }
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+          showSuccessMessage();
+          unblockSubmitButton();
+        },
+        () => {
+          showErrorMessage();
+          unblockSubmitButton();
+        },
+        new FormData(evt.target),
+      );
+    }
+  });
 };
 
-const clearFileInput = () => {
-  userForm.reset();
-};
-
-function openUserModal () {
-  userModal.classList.add('modal-open');
-  userModalElement.classList.remove('hidden');
-  document.addEventListener('keydown', onPopupEscKeydown);
-}
-
-function closeUserModal () {
-  userModal.classList.remove('modal-open');
-  userModalElement.classList.add('hidden');
-  clearFileInput();
-  resetScale();
-  resetEffects();
-  pristine.reset();
-  document.removeEventListener('keydown', onPopupEscKeydown);
-}
-
-userForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  const isValid = pristine.validate();
-  if (isValid) {
-    userForm.submit();
-  }
-});
-
-userModalOpenElement.addEventListener('change', () => {
-  openUserModal();
-});
-
-userModalCloseElement.addEventListener('click', () => {
-  closeUserModal();
-});
-
-
+export {setUserFormSubmit};
