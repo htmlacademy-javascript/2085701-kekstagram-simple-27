@@ -1,8 +1,9 @@
-import './util.js';
-import {simularDescriptions} from './data.js';
-import './check-Length.js';
-import './photo-list.js';
-import './user-form.js';
+import {simularPhotosList} from './photo-list.js';
+import {setUserFormSubmit} from './user-form.js';
+import {closeUserModal} from './user-modal.js';
+import {getData} from './api.js';
 import './scale.js';
 import './filter.js';
-simularDescriptions();
+
+getData(simularPhotosList);
+setUserFormSubmit(closeUserModal);
