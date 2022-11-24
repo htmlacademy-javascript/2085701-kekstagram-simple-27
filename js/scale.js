@@ -1,42 +1,42 @@
-const scaleInput = document.querySelector('.scale__control--value');
-const scaleButtonMinus = document.querySelector('.scale__control--smaller');
-const scaleButtonPlus = document.querySelector('.scale__control--bigger');
-const imagePreview = document.querySelector('.img-upload__preview img');
-
 const STEP_SCALE = 25;
 const SCALE_MIN = 25;
 const SCALE_MAX = 100;
 const DEFAULT_SCALE = 100;
 
-const scaleImage = (value = DEFAULT_SCALE) => {
-  imagePreview.style.transform = `scale(${value / 100})`;
-  scaleInput.value = `${value}%`;
+const scaleInputElement = document.querySelector('.scale__control--value');
+const scaleButtonMinusElement = document.querySelector('.scale__control--smaller');
+const scaleButtonPlusElement = document.querySelector('.scale__control--bigger');
+const imagePreviewElement = document.querySelector('.img-upload__preview img');
+
+const changeScaleImage = (value = DEFAULT_SCALE) => {
+  imagePreviewElement.style.transform = `scale(${value / 100})`;
+  scaleInputElement.value = `${value}%`;
 };
 
 const onMinusScaleClick = () => {
-  const currentValue = parseInt(scaleInput.value, 10);
+  const currentValue = parseInt(scaleInputElement.value, 10);
   let newValue = currentValue - STEP_SCALE;
   if (newValue < SCALE_MIN) {
     newValue = SCALE_MIN;
   }
-  scaleImage(newValue);
+  changeScaleImage(newValue);
 };
 
 const onPlusScaleClick = () => {
-  const currentValue = parseInt(scaleInput.value, 10);
+  const currentValue = parseInt(scaleInputElement.value, 10);
   let newValue = currentValue + STEP_SCALE;
   if (newValue > SCALE_MAX) {
     newValue = SCALE_MAX;
   }
-  scaleImage(newValue);
+  changeScaleImage(newValue);
 };
 
 const resetScale = () => {
-  scaleImage();
+  changeScaleImage();
 };
 
-scaleButtonMinus.addEventListener('click', onMinusScaleClick);
+scaleButtonMinusElement.addEventListener('click', onMinusScaleClick);
 
-scaleButtonPlus.addEventListener('click', onPlusScaleClick);
+scaleButtonPlusElement.addEventListener('click', onPlusScaleClick);
 
 export {resetScale};
