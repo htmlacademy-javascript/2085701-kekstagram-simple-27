@@ -1,10 +1,10 @@
 import {showErrorMessage, showSuccessMessage} from './submit-message.js';
 import {sendData} from './api.js';
 
-const userForm = document.querySelector('#upload-select-image');
-const submitButton = document.querySelector('.img-upload__submit');
+const userFormElement = document.querySelector('#upload-select-image');
+const submitButtonElement = document.querySelector('.img-upload__submit');
 
-const pristine = new Pristine(userForm, {
+const pristine = new Pristine(userFormElement, {
   classTo: 'img-upload__text',
   errorTextParent: 'img-upload__text',
   errorTextTag: 'span',
@@ -12,17 +12,17 @@ const pristine = new Pristine(userForm, {
 });
 
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = 'Публикую...';
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = 'Публикую...';
 };
 
 const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = 'Опубликовать';
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = 'Опубликовать';
 };
 
 const setUserFormSubmit = (onSuccess) => {
-  userForm.addEventListener('submit', (evt) => {
+  userFormElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {

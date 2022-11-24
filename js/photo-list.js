@@ -1,18 +1,18 @@
-const userPhotosList = document.querySelector('.container');
-const simularPicruresTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const userPhotosListElement = document.querySelector('.container');
+const similarPicruresTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const simularPhotosList = (simularPhotos) => {
-  const simularPhotosFragment = document.createDocumentFragment();
+const renderSimilarPhotos = (similarPhotos) => {
+  const similarPhotosFragment = document.createDocumentFragment();
 
-  simularPhotos.forEach(({url, comments, likes}) => {
-    const photoElement = simularPicruresTemplate.cloneNode(true);
+  similarPhotos.forEach(({url, comments, likes}) => {
+    const photoElement = similarPicruresTemplate.cloneNode(true);
     photoElement.querySelector('.picture__img').src = url;
     photoElement.querySelector('.picture__comments').textContent = comments;
     photoElement.querySelector('.picture__likes').textContent = likes;
-    simularPhotosFragment.appendChild(photoElement);
+    similarPhotosFragment.appendChild(photoElement);
   });
 
-  userPhotosList.appendChild(simularPhotosFragment);
+  userPhotosListElement.appendChild(similarPhotosFragment);
 };
 
-export {simularPhotosList};
+export {renderSimilarPhotos};
